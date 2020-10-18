@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { signInWithGoogle } from "../../services/auth";
 import { history } from "../routers/routers";
+import { connect } from "react-redux";
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     console.log("signin");
@@ -11,6 +12,10 @@ export default class Login extends Component {
       error: null,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    if (!!this.props.id) history.push("/");
   }
 
   async handleSubmit(event) {
@@ -41,3 +46,7 @@ export default class Login extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({ id: state.authDetails.id });
+
+export default connect(mapStateToProps)(Login);
