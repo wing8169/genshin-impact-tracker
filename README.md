@@ -51,11 +51,12 @@ ReactJS front end with Firebase database, private usage no plan to release yet
 - [x] Map Loader
 - [x] Create Marker Form UI
 - [x] Side Menu
-- [ ] On-Click Create Markers UI - IN PROGRESS
+- [x] On-Click Create Markers UI
+- [x] N Hours Since Found Filter
+- [ ] Logic On Estimating Respawn Time - IN PROGRESS
 - [ ] On-Click Marker See Recent Activities
 - [ ] Integrate Markers To Firebase
-- [ ] Notify / Highlight Markers When >= 24 Hours
 
 # Contribution
 
-The project is non-commercial and contributed by Chin Jia Xiong.
+The project is contributed by Chin Jia Xiong and assisted by Eng Tze Qian.

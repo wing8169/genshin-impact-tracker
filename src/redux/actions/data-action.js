@@ -4,6 +4,7 @@ import {
   CLEAR_DATA,
   SET_HOURS,
   REMOVE_MARKER,
+  UPDATE_MARKER,
 } from "../types";
 
 export const setMarkersAction = (markers) => {
@@ -44,6 +45,15 @@ export const removeMarkerAction = (id) => {
     type: REMOVE_MARKER,
     payload: {
       id,
+    },
+  };
+};
+
+export const updateMarkerAction = (marker) => {
+  return {
+    type: UPDATE_MARKER,
+    payload: {
+      marker,
     },
   };
 };

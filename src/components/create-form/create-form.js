@@ -51,9 +51,10 @@ const CreateForm = (props) => {
       type: type,
       lat: props.latlng.lat,
       lng: props.latlng.lng,
-      createdAt: new Date(),
-      estimatedRespawn: 0,
+      lastFound: new Date(),
+      estimatedRespawn: -1,
       shortestRespawn: -1,
+      recentRespawn: -1,
     });
     // Create marker locally
     props.setOpen(false);

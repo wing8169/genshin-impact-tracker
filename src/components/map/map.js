@@ -11,8 +11,8 @@ import IconButton from "@material-ui/core/IconButton";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { DateSlider } from "../date-slider";
-import { getHoursDiff } from "../../services/helper";
-import { removeMarker, setHours } from "../../redux/dispatchers";
+import { addHours, getHoursDiff } from "../../services/helper";
+import { removeMarker, setHours, updateMarker } from "../../redux/dispatchers";
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
@@ -68,6 +68,25 @@ const MyMap = () => {
     if (!!decision) removeMarker(id);
   };
 
+  const foundMarker = (marker) => {
+    let decision = window.confirm("Found the marker again?");
+    if (!!decision) {
+      // get marker lastFound and count the hours diff
+      let hoursDiff = getHoursDiff(marker.lastFound);
+      // update the shortest respawn if needed
+      if (marker.shortestRespawn === -1 || hoursDiff < marker.shortestRespawn)
+        marker.shortestRespawn = hoursDiff;
+      // update the recent respawn time
+      marker.recentRespawn = hoursDiff;
+      // update marker lastFound
+      marker.lastFound = new Date();
+      // update the estimated found time (Current logic is using the shortest respawn)
+      marker.estimatedRespawn = addHours(marker.lastFound, hoursDiff);
+      // update to redux
+      updateMarker(marker);
+    }
+  };
+
   return (
     <>
       <IconButton aria-label="menu" className={classes.menu} onClick={openMenu}>
@@ -94,7 +113,7 @@ const MyMap = () => {
           maxBounds={new LatLngBounds(new LatLng(0, 6144), new LatLng(6144, 0))}
         />
         {markers.map((marker, idx) =>
-          getHoursDiff(marker.createdAt) >= hours ? (
+          getHoursDiff(marker.lastFound) >= hours ? (
             <Marker
               key={`marker-${idx}`}
               position={[marker.lat, marker.lng]}
@@ -110,10 +129,19 @@ const MyMap = () => {
               })}
             >
               <Popup>
+                <h3>{marker.type}</h3>
                 <p>
-                  {marker.type} <br /> Created At:{" "}
-                  {!!marker.createdAt ? moment(marker.createdAt).toString() : 0}{" "}
-                  Estimated Respawn: {marker.estimatedRespawn}
+                  Last Found Time:{" "}
+                  {!!marker.lastFound ? moment(marker.lastFound).toString() : 0}
+                  <br />
+                  Recent Respawn Hours Interval: {
+                    marker.recentRespawn
+                  } <br /> Shortest Respawn Hours Interval:{" "}
+                  {marker.shortestRespawn} <br />
+                  Estimated Respawn Time:{" "}
+                  {!!marker.estimatedRespawn
+                    ? moment(marker.estimatedRespawn).toString()
+                    : 0}{" "}
                 </p>
                 <Button
                   variant="contained"
@@ -127,7 +155,7 @@ const MyMap = () => {
                   variant="contained"
                   color="primary"
                   size={"small"}
-                  onClick={() => alert("Work in Progress")}
+                  onClick={() => foundMarker(marker)}
                   style={{ marginLeft: 5 }}
                 >
                   Found Again
