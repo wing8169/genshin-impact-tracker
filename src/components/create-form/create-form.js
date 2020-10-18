@@ -39,7 +39,8 @@ function PaperComponent(props) {
 const CreateForm = (props) => {
   const classes = useStyles();
 
-  const submitForm = () => {
+  const submitForm = (type) => {
+    // Create marker locally
     props.setOpen(false);
   };
 
@@ -63,33 +64,33 @@ const CreateForm = (props) => {
         </DialogContent>
         <DialogActions className={classes.buttons}>
           <Button
-            onClick={() => props.setOpen(false)}
+            onClick={() => submitForm("artifact")}
             variant="contained"
             color="primary"
             startIcon={<RoomIcon />}
             className={classes.button}
           >
-            Artifacts
+            Artifact
           </Button>
           <Button
-            onClick={submitForm}
+            onClick={() => submitForm("plant")}
             variant="contained"
             color="primary"
             enabled={!!props.latlng}
             startIcon={<RoomIcon />}
             className={classes.button}
           >
-            Plants
+            Plant
           </Button>
           <Button
-            onClick={submitForm}
+            onClick={() => submitForm("chest")}
             variant="contained"
             color="primary"
             enabled={!!props.latlng}
             startIcon={<RoomIcon />}
             className={classes.button}
           >
-            Chests
+            Chest
           </Button>
         </DialogActions>
       </Dialog>
