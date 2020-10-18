@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import teyvat from "../../images/teyvat.png";
 import { Map, ImageOverlay } from "react-leaflet";
@@ -6,6 +6,7 @@ import { CRS, LatLngBounds, LatLng } from "leaflet";
 import Button from "@material-ui/core/Button";
 import { signOut } from "../../services/auth";
 import PrivateComponent from "../private-component";
+import CreateForm from "../create-form/create-form";
 
 const useStyles = makeStyles((theme) => ({
   background: {
@@ -15,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 1,
   },
   button: {
-    position: "absolute",
+    position: "fixed",
     bottom: 30,
     right: 30,
     zIndex: 200,
@@ -24,14 +25,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MyMap = () => {
-  console.log("map");
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
+  const [latlng, setLatlng] = useState(null);
+
+  const onClick = (e) => {
+    // Open create marker form
+    setLatlng(e.latlng);
+    setOpen(true);
+  };
 
   return (
     <>
       <Button variant="contained" className={classes.button} onClick={signOut}>
         Log Out
       </Button>
+      <CreateForm open={open} setOpen={setOpen} latlng={latlng} />
       <Map
         center={[3000, 3000]}
         zoom={0}
@@ -41,6 +50,7 @@ const MyMap = () => {
         crs={CRS.Simple}
         bounds={new LatLngBounds(new LatLng(0, 6144), new LatLng(6144, 0))}
         maxBounds={new LatLngBounds(new LatLng(0, 6144), new LatLng(6144, 0))}
+        onClick={onClick}
       >
         <ImageOverlay
           url={teyvat}

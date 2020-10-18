@@ -47,7 +47,7 @@ ReactJS front end with Firebase database, private usage no plan to release yet
 
 # Progression
 
-- [ ] Firebase Authentication
+- [x] Firebase Authentication
 - [x] Map Loader
 - [ ] On-Click Markers
 - [ ] Marker Activity Logging
