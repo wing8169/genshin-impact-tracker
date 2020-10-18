@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 import moment from "moment";
 import { DateSlider } from "../date-slider";
 import { getHoursDiff } from "../../services/helper";
-import { setHours } from "../../redux/dispatchers";
+import { removeMarker, setHours } from "../../redux/dispatchers";
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
@@ -59,6 +59,13 @@ const MyMap = () => {
 
   const updateHours = (value) => {
     setHours(value);
+  };
+
+  const deleteMarker = (id) => {
+    let decision = window.confirm(
+      "Are you sure you want to permanently delete the marker?"
+    );
+    if (!!decision) removeMarker(id);
   };
 
   return (
@@ -112,9 +119,18 @@ const MyMap = () => {
                   variant="contained"
                   color="secondary"
                   size={"small"}
-                  onClick={() => alert("Work in Progress")}
+                  onClick={() => deleteMarker(marker.id)}
                 >
                   Remove Marker
+                </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  size={"small"}
+                  onClick={() => alert("Work in Progress")}
+                  style={{ marginLeft: 5 }}
+                >
+                  Found Again
                 </Button>
               </Popup>
             </Marker>

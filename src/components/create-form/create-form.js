@@ -42,9 +42,10 @@ const CreateForm = (props) => {
   const classes = useStyles();
 
   const submitForm = (type) => {
-    // TODO: Make this alert
-    if (!props.latlng) return;
-    // TODO: Add date time and estimated respawn time
+    if (!props.latlng) {
+      alert("Unable to retrieve position info, please try again.");
+      return;
+    }
     addMarker({
       id: v4(),
       type: type,
@@ -52,6 +53,7 @@ const CreateForm = (props) => {
       lng: props.latlng.lng,
       createdAt: new Date(),
       estimatedRespawn: 0,
+      shortestRespawn: -1,
     });
     // Create marker locally
     props.setOpen(false);

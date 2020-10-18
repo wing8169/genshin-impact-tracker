@@ -4,6 +4,7 @@ import {
   clearDataAction,
   addMarkerAction,
   setHoursAction,
+  removeMarkerAction,
 } from "../actions";
 
 export const setMarkers = (markers) => {
@@ -20,4 +21,8 @@ export const clearData = () => {
 
 export const addMarker = (marker) => {
   store.dispatch(addMarkerAction(marker));
+};
+
+export const removeMarker = (id) => {
+  store.dispatch(removeMarkerAction(id));
 };

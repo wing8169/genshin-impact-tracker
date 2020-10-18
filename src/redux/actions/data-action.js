@@ -1,4 +1,10 @@
-import { SET_MARKERS, ADD_MARKER, CLEAR_DATA, SET_HOURS } from "../types";
+import {
+  SET_MARKERS,
+  ADD_MARKER,
+  CLEAR_DATA,
+  SET_HOURS,
+  REMOVE_MARKER,
+} from "../types";
 
 export const setMarkersAction = (markers) => {
   return {
@@ -29,6 +35,15 @@ export const addMarkerAction = (marker) => {
     type: ADD_MARKER,
     payload: {
       marker,
+    },
+  };
+};
+
+export const removeMarkerAction = (id) => {
+  return {
+    type: REMOVE_MARKER,
+    payload: {
+      id,
     },
   };
 };
