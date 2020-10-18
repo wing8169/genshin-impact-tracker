@@ -1,8 +1,49 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { signInWithGoogle } from "../../services/auth";
 import { history } from "../routers/routers";
 import { connect } from "react-redux";
+import { withStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import genshinImg from "../../images/genshin-impact.png";
+
+const styles = {
+  paper: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    overflow: "hidden",
+    paddingTop: "150px",
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: 8,
+  },
+  submit: {
+    margin: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
+  info: {
+    position: "absolute",
+    bottom: 20,
+    marginLeft: "auto",
+    marginRight: "auto",
+    left: 0,
+    right: 0,
+    textAlign: "center",
+  },
+  bg: {
+    width: "100vw",
+    height: "100vh",
+    position: "fixed",
+    top: 0,
+    left: 0,
+    objectFit: "cover",
+    zIndex: -1,
+    margin: 0,
+  },
+};
 
 class Login extends Component {
   constructor(props) {
@@ -30,22 +71,45 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <h1>
-            Login to
-            <Link to="/">Genshin Impact Tracker</Link>
-          </h1>
-          <div>
-            {this.state.error ? <p>{this.state.error}</p> : null}
-            <button type="submit">Sign In With Google</button>
-          </div>
-        </form>
-      </div>
+      <>
+        <img src={genshinImg} alt={"bg"} className={this.props.classes.bg} />
+        <div className={this.props.classes.paper}>
+          <Typography
+            component="h1"
+            variant="h5"
+            align="center"
+            style={{ marginBottom: 20 }}
+          >
+            Genshin Impact Tracker
+          </Typography>
+          <Typography variant="body2" color="textSecondary" align="center">
+            A tool built to record respawn time of resources and <br />
+            study whether there is a logic behind or it is simply RNG.
+          </Typography>
+          {this.state.error ? <p>{this.state.error}</p> : null}
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            className={this.props.classes.submit}
+            onClick={this.handleSubmit}
+          >
+            Google Sign In
+          </Button>
+        </div>
+        <Typography
+          className={this.props.classes.info}
+          variant="body2"
+          color="textSecondary"
+          align="center"
+        >
+          {"By Jia Xiong, Assisted By Tze Qian, Feat. Mihoyo"}
+        </Typography>
+      </>
     );
   }
 }
 
 const mapStateToProps = (state) => ({ id: state.authDetails.id });
 
-export default connect(mapStateToProps)(Login);
+export default withStyles(styles)(connect(mapStateToProps)(Login));
