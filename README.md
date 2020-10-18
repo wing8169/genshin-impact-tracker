@@ -27,6 +27,15 @@ ReactJS front end with Firebase database, private usage no plan to release yet
 4. Naming convention for components is upper case first letter of every word, e.g. MainMenu
 5. Naming convention for functions / services is camelCase.
 
+# Progression
+
+- [ ] Firebase Authentication
+- [x] Map Loader
+- [ ] On-Click Markers
+- [ ] Marker Activity Logging
+- [ ] Markers Firebase Integration
+- [ ] Respawn Notifier
+
 # Contribution
 
 The project is non-commercial and contributed by Chin Jia Xiong.
