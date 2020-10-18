@@ -7,7 +7,25 @@
 5. As a user I want the data to be by google auth user.
 6. As a user I don't want any limitations to the maximum number of markers I can mark.
 
+# Figma Design
+
+https://www.figma.com/file/xvFQA1pCAiRk2KKeQgdb4Q/Personal-Projects?node-id=31%3A2
+
+# Why Need This?
+
+This is a just-for-fun project that I created to polish my skills in ReactJS. 
+Aside from that, I want to know if this can help in figuring out the "logic" 
+behind the respawning time for the chests to save our time walking around the 
+world and find for common chests but in vain. It might be a complete RNG, 
+but why don't we give it a try? xD
+
+# Prerequisites
+
+You will need a .env file that contains the credentials, request from the author to get the file.
+
 # Run Server
+
+Clone the project.
 
 npm install (first time cloning the project)
 
