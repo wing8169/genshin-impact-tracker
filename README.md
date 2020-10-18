@@ -1,10 +1,11 @@
 # Requirements
 
 1. As a user I need to mark any locations I want.
-2. As a user I want the markers to be chests, artifacts, plants
-3. As a user everytime I mark a marker, I want it to record my activity log
-4. As a user I want every marker to have a respawn time, and notify me if the respawn time is over
-5. As a user I want the data to be by google auth user
+2. As a user I want the markers to be chests, artifacts, plants.
+3. As a user every time I mark a marker, I want it to record my activity log.
+4. As a user I want every marker to have a reset time, and notify me if the reset time is over.
+5. As a user I want the data to be by google auth user.
+6. As a user I don't want any limitations to the maximum number of markers I can mark.
 
 # Run Server
 
