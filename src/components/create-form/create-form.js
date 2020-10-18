@@ -10,6 +10,7 @@ import Draggable from "react-draggable";
 import RoomIcon from "@material-ui/icons/Room";
 import { makeStyles } from "@material-ui/core/styles";
 import { addMarker } from "../../redux/dispatchers";
+import { v4 } from "uuid";
 
 const useStyles = makeStyles((theme) => ({
   buttons: {
@@ -45,6 +46,7 @@ const CreateForm = (props) => {
     if (!props.latlng) return;
     // TODO: Add date time and estimated respawn time
     addMarker({
+      id: v4(),
       type: type,
       lat: props.latlng.lat,
       lng: props.latlng.lng,

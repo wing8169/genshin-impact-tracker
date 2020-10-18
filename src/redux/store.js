@@ -6,17 +6,17 @@ import reducers from "./reducers";
 const MIGRATION_DEBUG = false;
 
 const migrations = {
-  0: (state) => {
+  2: (state) => {
     return { ...state };
   },
 };
 
 const persistConfig = {
   key: "root",
-  version: 0,
+  version: 2,
   migrate: createMigrate(migrations, { debug: MIGRATION_DEBUG }),
   storage: localStorage,
-  whitelist: ["authDetails", "markers"], // which reducer want to store
+  whitelist: ["authDetails", "data"], // which reducer want to store
 };
 
 const persistedReducers = persistReducer(persistConfig, reducers);

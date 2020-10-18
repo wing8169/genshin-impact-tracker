@@ -1,5 +1,5 @@
 import { auth } from "./firebase";
-import { clearAuthDetails, clearMarkers } from "../redux/dispatchers";
+import { clearAuthDetails, clearData } from "../redux/dispatchers";
 import { history } from "../components/routers/routers";
 
 export function signInWithGoogle() {
@@ -12,7 +12,7 @@ export function signOut() {
     .signOut()
     .then(function () {
       clearAuthDetails();
-      clearMarkers();
+      clearData();
       history.push("/signin");
     })
     .catch(function (error) {

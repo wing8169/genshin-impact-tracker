@@ -1,4 +1,4 @@
-import { SET_MARKERS, ADD_MARKER, CLEAR_MARKERS } from "../types";
+import { SET_MARKERS, ADD_MARKER, CLEAR_DATA, SET_HOURS } from "../types";
 
 export const setMarkersAction = (markers) => {
   return {
@@ -9,9 +9,18 @@ export const setMarkersAction = (markers) => {
   };
 };
 
-export const clearMarkersAction = () => {
+export const setHoursAction = (hours) => {
   return {
-    type: CLEAR_MARKERS,
+    type: SET_HOURS,
+    payload: {
+      hours,
+    },
+  };
+};
+
+export const clearDataAction = () => {
+  return {
+    type: CLEAR_DATA,
   };
 };
 

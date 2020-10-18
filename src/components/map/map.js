@@ -10,6 +10,10 @@ import MenuIcon from "@material-ui/icons/Menu";
 import IconButton from "@material-ui/core/IconButton";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import { DateSlider } from "../date-slider";
+import { getHoursDiff } from "../../services/helper";
+import { setHours } from "../../redux/dispatchers";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   background: {
@@ -33,9 +37,6 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 10,
     opacity: 1,
   },
-  marker: {
-    backgroundColor: "red",
-  },
 }));
 
 const MyMap = () => {
@@ -43,7 +44,8 @@ const MyMap = () => {
   const [open, setOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [latlng, setLatlng] = useState(null);
-  const markers = useSelector((state) => state.markers.markers);
+  const markers = useSelector((state) => state.data.markers);
+  const hours = useSelector((state) => state.data.hours);
 
   const onClick = (e) => {
     // Open create marker form
@@ -55,6 +57,10 @@ const MyMap = () => {
     setMenuOpen(true);
   };
 
+  const updateHours = (value) => {
+    setHours(value);
+  };
+
   return (
     <>
       <IconButton aria-label="menu" className={classes.menu} onClick={openMenu}>
@@ -62,6 +68,7 @@ const MyMap = () => {
       </IconButton>
       <CreateForm open={open} setOpen={setOpen} latlng={latlng} />
       <SideMenu open={menuOpen} setOpen={setMenuOpen} />
+      <DateSlider setValue={updateHours} />
       <Map
         center={[3000, 3000]}
         zoom={0}
@@ -79,31 +86,42 @@ const MyMap = () => {
           bounds={new LatLngBounds(new LatLng(0, 6144), new LatLng(6144, 0))}
           maxBounds={new LatLngBounds(new LatLng(0, 6144), new LatLng(6144, 0))}
         />
-        {markers.map((marker, idx) => (
-          <Marker
-            key={`marker-${idx}`}
-            position={[marker.lat, marker.lng]}
-            className={classes.marker}
-            icon={icon({
-              iconUrl:
-                marker.type === "Chest"
-                  ? require("../../images/marker-red.png")
-                  : marker.type === "Plant"
-                  ? require("../../images/marker-green.png")
-                  : require("../../images/marker-blue.png"),
-              iconSize: [32, 32],
-              iconAnchor: [16, 32],
-            })}
-          >
-            <Popup>
-              <span>
-                {marker.type} <br /> Created At:{" "}
-                {!!marker.createdAt ? moment(marker.createdAt).toString() : 0}{" "}
-                <br /> Estimated Respawn: {marker.estimatedRespawn}
-              </span>
-            </Popup>
-          </Marker>
-        ))}
+        {markers.map((marker, idx) =>
+          getHoursDiff(marker.createdAt) >= hours ? (
+            <Marker
+              key={`marker-${idx}`}
+              position={[marker.lat, marker.lng]}
+              icon={icon({
+                iconUrl:
+                  marker.type === "Chest"
+                    ? require("../../images/marker-red.png")
+                    : marker.type === "Plant"
+                    ? require("../../images/marker-green.png")
+                    : require("../../images/marker-blue.png"),
+                iconSize: [32, 32],
+                iconAnchor: [16, 32],
+              })}
+            >
+              <Popup>
+                <p>
+                  {marker.type} <br /> Created At:{" "}
+                  {!!marker.createdAt ? moment(marker.createdAt).toString() : 0}{" "}
+                  Estimated Respawn: {marker.estimatedRespawn}
+                </p>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  size={"small"}
+                  onClick={() => alert("Work in Progress")}
+                >
+                  Remove Marker
+                </Button>
+              </Popup>
+            </Marker>
+          ) : (
+            <></>
+          )
+        )}
       </Map>
     </>
   );

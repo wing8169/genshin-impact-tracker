@@ -1,2 +1,2 @@
 export * from "./auth-dispatcher";
-export * from "./markers-dispatcher";
+export * from "./data-dispatcher";
