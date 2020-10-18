@@ -9,6 +9,7 @@ import Paper from "@material-ui/core/Paper";
 import Draggable from "react-draggable";
 import RoomIcon from "@material-ui/icons/Room";
 import { makeStyles } from "@material-ui/core/styles";
+import { addMarker } from "../../redux/dispatchers";
 
 const useStyles = makeStyles((theme) => ({
   buttons: {
@@ -40,6 +41,16 @@ const CreateForm = (props) => {
   const classes = useStyles();
 
   const submitForm = (type) => {
+    // TODO: Make this alert
+    if (!props.latlng) return;
+    // TODO: Add date time and estimated respawn time
+    addMarker({
+      type: type,
+      lat: props.latlng.lat,
+      lng: props.latlng.lng,
+      createdAt: new Date(),
+      estimatedRespawn: 0,
+    });
     // Create marker locally
     props.setOpen(false);
   };
@@ -64,7 +75,7 @@ const CreateForm = (props) => {
         </DialogContent>
         <DialogActions className={classes.buttons}>
           <Button
-            onClick={() => submitForm("artifact")}
+            onClick={() => submitForm("Artifact")}
             variant="contained"
             color="primary"
             startIcon={<RoomIcon />}
@@ -73,7 +84,7 @@ const CreateForm = (props) => {
             Artifact
           </Button>
           <Button
-            onClick={() => submitForm("plant")}
+            onClick={() => submitForm("Plant")}
             variant="contained"
             color="primary"
             enabled={!!props.latlng}
@@ -83,7 +94,7 @@ const CreateForm = (props) => {
             Plant
           </Button>
           <Button
-            onClick={() => submitForm("chest")}
+            onClick={() => submitForm("Chest")}
             variant="contained"
             color="primary"
             enabled={!!props.latlng}

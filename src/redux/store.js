@@ -16,7 +16,7 @@ const persistConfig = {
   version: 0,
   migrate: createMigrate(migrations, { debug: MIGRATION_DEBUG }),
   storage: localStorage,
-  whitelist: ["authDetails"], // which reducer want to store
+  whitelist: ["authDetails", "markers"], // which reducer want to store
 };
 
 const persistedReducers = persistReducer(persistConfig, reducers);
