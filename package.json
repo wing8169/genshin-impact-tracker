@@ -9,6 +9,8 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "dotenv": "^8.2.0",
+    "firebase": "^7.24.0",
+    "history": "^5.0.0",
     "leaflet": "^1.7.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
