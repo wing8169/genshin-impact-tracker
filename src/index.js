@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import { MainMenu } from "./components";
+import { Map } from "./components";
 import * as serviceWorker from "./service-worker";
 
 ReactDOM.render(
   <React.StrictMode>
-    <MainMenu />
+    <Map />
   </React.StrictMode>,
   document.getElementById("root")
 );
