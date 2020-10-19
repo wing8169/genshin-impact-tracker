@@ -17,12 +17,16 @@ import {
   removeMarker,
   setHours,
   updateMarker,
+  setMarkers
 } from "../../redux/dispatchers";
 import Button from "@material-ui/core/Button";
 import { MarkersMenu } from "../markers-menu";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import { Helmet } from "react-helmet";
 import { Tutorial } from "../tutorial";
+import SyncIcon from '@material-ui/icons/Sync';
+import {syncMarkers,retrieveMarkers} from '../../services/helper'
+import GetAppIcon from '@material-ui/icons/GetApp';
 
 const useStyles = makeStyles((theme) => ({
   background: {
@@ -54,6 +58,22 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 10,
     opacity: 1,
   },
+  syncButton: {
+    position: "fixed",
+    top: 100,
+    right: 30,
+    zIndex: 10,
+    opacity: 1,
+    backgroundColor: "#4aa4e0",
+  },
+  retrieveButton: {
+    position: "fixed",
+    top: 170,
+    right: 30,
+    zIndex: 10,
+    opacity: 1,
+    backgroundColor: "#4aa4e0",
+  }
 }));
 
 const MyMap = () => {
@@ -99,6 +119,25 @@ const MyMap = () => {
       });
     }
   };
+
+  const saveMarkers = (markers) => {
+    let decision = window.confirm(
+      "Are you sure you want to sync the markers?"
+    );
+    if(!!decision) {
+      syncMarkers(markers)
+    }
+
+  }
+
+  const getMarkers = () => {
+    let decision = window.confirm(
+      "Are you sure you want to retrieve the markers stored from cloud?"
+    );
+    if(!!decision) {
+     retrieveMarkers()
+    }
+  }
 
   const foundMarker = (marker) => {
     let decision = window.confirm("Found the marker again?");
@@ -156,6 +195,20 @@ const MyMap = () => {
         onClick={openMarkersMenu}
       >
         <NotificationsIcon />
+      </IconButton>
+      <IconButton
+        aria-label="menu"
+        className={classes.syncButton}
+        onClick={()=>saveMarkers(markers)}
+      >
+        <SyncIcon />
+      </IconButton>
+      <IconButton
+        aria-label="menu"
+        className={classes.retrieveButton}
+        onClick={()=>getMarkers()}
+      >
+        <GetAppIcon/>
       </IconButton>
       <Tutorial/>
       <CreateForm open={open} setOpen={setOpen} latlng={latlng} />
