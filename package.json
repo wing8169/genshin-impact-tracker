@@ -10,7 +10,6 @@
     "@testing-library/user-event": "^7.2.1",
     "dotenv": "^8.2.0",
     "firebase": "^7.24.0",
-    "history": "^4.10.1",
     "leaflet": "^1.7.1",
     "moment": "^2.29.1",
     "react": "^16.14.0",

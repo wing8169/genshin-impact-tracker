@@ -1,6 +1,5 @@
 import { auth } from "./firebase";
 import { clearAuthDetails, clearData } from "../redux/dispatchers";
-import { history } from "../components/routers/routers";
 
 export function signInWithGoogle() {
   const provider = new auth.GoogleAuthProvider();
@@ -13,7 +12,6 @@ export function signOut() {
     .then(function () {
       clearAuthDetails();
       clearData();
-      history.push("/signin");
     })
     .catch(function (error) {
       // An error happened.

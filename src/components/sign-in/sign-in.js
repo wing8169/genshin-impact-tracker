@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { signInWithGoogle } from "../../services/auth";
-import { history } from "../routers/routers";
-import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
@@ -57,17 +55,12 @@ class Login extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    if (!!this.props.id) history.push("/");
-  }
-
   async handleSubmit(event) {
     event.preventDefault();
     this.setState({ error: "" });
     try {
       await signInWithGoogle();
       retrieveMarkers();
-      history.push("/");
     } catch (error) {
       this.setState({ error: error.message });
     }
@@ -134,6 +127,4 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({ id: state.authDetails.id });
-
-export default withStyles(styles)(connect(mapStateToProps)(Login));
+export default withStyles(styles)(Login);

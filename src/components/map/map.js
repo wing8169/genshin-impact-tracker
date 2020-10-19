@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import teyvat from "../../images/teyvat.webp";
 import { Map, ImageOverlay, Marker, Popup } from "react-leaflet";
 import { CRS, LatLngBounds, LatLng, icon } from "leaflet";
-import PrivateComponent from "../private-component";
 import CreateForm from "../create-form/create-form";
 import SideMenu from "../side-menu/side-menu";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -313,4 +312,4 @@ const MyMap = () => {
   );
 };
 
-export default PrivateComponent(MyMap);
+export default MyMap;

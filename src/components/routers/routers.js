@@ -1,15 +1,45 @@
 import React, { Component } from "react";
-import { Route, Router, Switch } from "react-router-dom";
+import {
+  Route,
+  BrowserRouter as Router,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import { Map } from "../";
 import { auth } from "../../services/firebase";
 import { SignIn } from "../sign-in";
 import { persistor } from "../../redux/store";
 import { PersistGate } from "redux-persist/integration/react";
-import { createBrowserHistory } from "history";
 import { clearAuthDetails, setAuthDetails } from "../../redux/dispatchers";
 import { connect } from "react-redux";
 
-export const history = createBrowserHistory();
+function PrivateRoute({ component: Component, authenticated, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={(props) =>
+        authenticated === true ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{ pathname: "/signin", state: { from: props.location } }}
+          />
+        )
+      }
+    />
+  );
+}
+
+function PublicRoute({ component: Component, authenticated, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={(props) =>
+        authenticated === false ? <Component {...props} /> : <Redirect to="/" />
+      }
+    />
+  );
+}
 
 class Routers extends Component {
   componentDidMount() {
@@ -22,11 +52,21 @@ class Routers extends Component {
 
   render() {
     return (
-      <Router history={history}>
+      <Router>
         <PersistGate persistor={persistor}>
           <Switch>
-            <Route exact path="/" component={Map} />
-            <Route exact path="/signin" component={SignIn} />
+            <PrivateRoute
+              exact
+              path="/"
+              component={Map}
+              authenticated={!!this.props.id}
+            />
+            <PublicRoute
+              exact
+              path="/signin"
+              component={SignIn}
+              authenticated={!!this.props.id}
+            />
           </Switch>
         </PersistGate>
       </Router>
