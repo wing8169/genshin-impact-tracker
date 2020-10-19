@@ -56,6 +56,7 @@ ReactJS front end with Firebase database, private usage no plan to release yet
 - [x] Logic On Estimating Respawn Time
 - [x] Side Menu See Recent Activities
 - [x] Side Menu Activities On-Click Navigate Markers
+- [x] Markers Notifier
 - [ ] Integrate Markers To Firebase
 
 # Contribution
