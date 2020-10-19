@@ -1,27 +1,33 @@
-# Website
+# Demonstration Website
 
 https://genshin-impact-tracker.herokuapp.com/
 
-# Requirements
+# Features
 
-1. As a user I need to mark any locations I want.
-2. As a user I want the markers to be chests, artifacts, plants.
-3. As a user every time I mark a marker, I want it to record my activity log.
-4. As a user I want every marker to have a reset time, and notify me if the reset time is over.
-5. As a user I want the data to be by google auth user.
-6. As a user I don't want any limitations to the maximum number of markers I can mark.
+- [x] Mark any locations on the world of Teyvat.
+- [x] Keep track of all the markers and recent changes.
+- [x] Estimate the resources respawn time by calculating the shortest interval.
+- [x] Notification when the resources estimated respawn time has passed.
 
-# Why Need This?
+# Why Built This?
 
 This is a just-for-fun project that I created to polish my skills in ReactJS.
 Aside from that, I want to know if this can help in figuring out the "logic"
 behind the respawning time for the chests to save our time walking around the
 world and find for common chests but in vain. It might be a complete RNG,
-but why don't we give it a try? xD
+but why don't we give it a try?
 
 # Prerequisites
 
-You will need a .env file that contains the credentials, request from the author to get the file.
+Add `.env` file that includes the following information.
+
+```dotenv
+# firebase
+REACT_APP_API_KEY="Your firebase api key"
+REACT_APP_AUTH_DOMAIN="Your firebase auth domain"
+REACT_APP_DATABASE_URL="Your firebase database URL"
+REACT_APP_PROJECT_ID="Your firebase project ID"
+```
 
 # Run Server
 
@@ -35,12 +41,12 @@ install "prettier" plugin and enable to allow 2-space formatting
 
 # Infrastructure
 
-ReactJS front end with Firebase database, private usage no plan to release yet
+ReactJS front end integrated with Firebase database.
 
 # Project Structure
 
 1. Components for UI components, service for backend logic, images for static images.
-2. Naming conventions should be lower case with dash, e.g. main-menu.js, tevyat-map.png
+2. Naming conventions should be lower case with dash, e.g. main-menu.js, tevyat-map.webp
 3. Component should use functional components instead of class components if possible.
 4. Naming convention for components is upper case first letter of every word, e.g. MainMenu
 5. Naming convention for functions / services is camelCase.
@@ -61,4 +67,7 @@ ReactJS front end with Firebase database, private usage no plan to release yet
 
 # Contribution
 
-The project is contributed by Chin Jia Xiong and assisted by Eng Tze Qian.
+The project is contributed by Chin Jia Xiong and assisted by Eng Tze Qian, final year Degree Software Engineering students.
+
+ALL MEDIA ASSETS ARE OWNED BY THE ORIGINAL CREATORS, although this project is only for personal research purpose,
+they have the complete rights to shut down the service at any time.

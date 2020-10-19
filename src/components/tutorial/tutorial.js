@@ -46,16 +46,17 @@ const Tutorial = () => {
             behavior of resource respawn time. <br />
             <br />
             Via this platform, you can navigate through the world of Teyvat and
-            click to create a new marker. Once you have found the resources
-            again, click on the existing markers and click "Found Again". <br />
+            click to mark new resources found. Once you have found the resources
+            again, click on the existing markers and click "Found Again", the
+            estimated next respawn time will be calculated based on the shortest
+            time interval difference. <br />
             <br />
-            Estimation of respawn time will be provided based on the shortest
-            respawn interval (By Hours). You can keep track of your activities
-            at the side menu, and click to see the markers involved. Besides,
-            you can click on the upper right notification icon button to see
-            what are the resources that are expected to be respawned (Will be
-            highlighted red). Take note that the estimation will only be carried
-            out if you have found a resource <b>at least twice.</b> <br />
+            You can keep track of your activities at the side menu, and click to
+            see the markers involved. Besides, you can click on the upper right
+            notification icon button to see what are the resources that are
+            expected to be respawned (Will be highlighted red). Take note that
+            the estimation will only be carried out if you have found a resource{" "}
+            <b>at least twice.</b> <br />
             <br />
             <b>
               The current version does not support cloud syncing, your data will

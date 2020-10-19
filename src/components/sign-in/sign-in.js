@@ -4,6 +4,7 @@ import { history } from "../routers/routers";
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
 import genshinImg from "../../images/genshin-impact.png";
 import { Helmet } from "react-helmet";
@@ -116,7 +117,15 @@ class Login extends Component {
           color="textSecondary"
           align="center"
         >
-          {"By Jia Xiong, Assisted By Tze Qian, Feat. Mihoyo"}
+          GitHub:
+          <Link
+            href={
+              "https://github.com/wing8169/genshin-impact-tracker/tree/master"
+            }
+            target="_blank"
+          >
+            wing8169/genshin-impact-tracker
+          </Link>
         </Typography>
       </>
     );
