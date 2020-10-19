@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import teyvat from "../../images/teyvat.webp";
 import { Map, ImageOverlay, Marker, Popup } from "react-leaflet";
@@ -133,7 +133,7 @@ const MyMap = () => {
   };
 
   return (
-    <>
+    <Fragment>
       <Helmet>
         <title>
           Genshin Impact Tracker | Track Your Resources and Study the Respawn
@@ -236,12 +236,10 @@ const MyMap = () => {
                 </Button>
               </Popup>
             </Marker>
-          ) : (
-            <></>
-          )
+          ) : null
         )}
       </Map>
-    </>
+    </Fragment>
   );
 };
 
