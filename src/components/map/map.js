@@ -19,6 +19,8 @@ import {
   updateMarker,
 } from "../../redux/dispatchers";
 import Button from "@material-ui/core/Button";
+import { MarkersMenu } from "../markers-menu";
+import NotificationsIcon from "@material-ui/icons/Notifications";
 
 const useStyles = makeStyles((theme) => ({
   background: {
@@ -31,6 +33,14 @@ const useStyles = makeStyles((theme) => ({
     position: "fixed",
     top: 30,
     left: 30,
+    zIndex: 10,
+    opacity: 1,
+    backgroundColor: "#4aa4e0",
+  },
+  markersMenu: {
+    position: "fixed",
+    top: 30,
+    right: 30,
     zIndex: 10,
     opacity: 1,
     backgroundColor: "#4aa4e0",
@@ -48,6 +58,7 @@ const MyMap = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [markersMenuOpen, setMarkersMenuOpen] = useState(false);
   const [latlng, setLatlng] = useState(null);
   const markers = useSelector((state) => state.data.markers);
   const hours = useSelector((state) => state.data.hours);
@@ -61,6 +72,10 @@ const MyMap = () => {
 
   const openMenu = () => {
     setMenuOpen(true);
+  };
+
+  const openMarkersMenu = () => {
+    setMarkersMenuOpen(true);
   };
 
   const updateHours = (value) => {
@@ -121,10 +136,22 @@ const MyMap = () => {
       <IconButton aria-label="menu" className={classes.menu} onClick={openMenu}>
         <MenuIcon />
       </IconButton>
+      <IconButton
+        aria-label="menu"
+        className={classes.markersMenu}
+        onClick={openMarkersMenu}
+      >
+        <NotificationsIcon />
+      </IconButton>
       <CreateForm open={open} setOpen={setOpen} latlng={latlng} />
       <SideMenu
         open={menuOpen}
         setOpen={setMenuOpen}
+        focusMarker={focusMarker}
+      />
+      <MarkersMenu
+        open={markersMenuOpen}
+        setOpen={setMarkersMenuOpen}
         focusMarker={focusMarker}
       />
       <DateSlider setValue={updateHours} />

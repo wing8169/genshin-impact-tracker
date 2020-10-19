@@ -17,7 +17,14 @@ export const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case SET_MARKERS:
-      return { ...state, markers: action.payload };
+      const markers = action.payload;
+      // sort markers
+      markers.sort(function (a, b) {
+        if (a.recentRespawn === -1 || a.shortestRespawn === -1) return 1;
+        if (b.recentRespawn === -1 || b.shortestRespawn === -1) return -1;
+        return a.estimatedRespawn < b.estimatedRespawn;
+      });
+      return { ...state, markers: markers };
     case UPDATE_MARKER:
       const newMarkers = [];
       for (let i = 0; i < state.markers.length; i++) {
@@ -26,6 +33,12 @@ export default (state = initialState, action) => {
         }
         newMarkers.push(state.markers[i]);
       }
+      // sort markers
+      newMarkers.sort(function (a, b) {
+        if (a.recentRespawn === -1 || a.shortestRespawn === -1) return 1;
+        if (b.recentRespawn === -1 || b.shortestRespawn === -1) return -1;
+        return a.estimatedRespawn < b.estimatedRespawn;
+      });
       return { ...state, markers: newMarkers };
     case ADD_MARKER:
       return { ...state, markers: [...state.markers, action.payload.marker] };
