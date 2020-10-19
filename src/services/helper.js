@@ -1,55 +1,36 @@
-import { auth } from "./firebase";
 import { db } from "./firebase";
 import { store } from "../redux/store";
 import { setMarkers } from "../redux/dispatchers";
-import { signInWithGoogle } from "./auth";
 
 export const backupMarkers = () => {
-  // if user is logged out due to any reason, try to help them log in back
-  if (!auth().currentUser) {
-    signInWithGoogle().then(() => {
-      const markers = store.getState().data.markers;
-      const id = store.getState().authDetails.id;
-      db.ref("users/" + id)
-        .set({
-          markers,
-        })
-        .then(() => {});
+  const markers = store.getState().data.markers;
+  const id = store.getState().authDetails.id;
+  db.ref("users/" + id)
+    .set({
+      markers,
+    })
+    .then(() => {
+      alert("Data back up successfully!");
+    })
+    .catch((err) => {
+      alert(err);
     });
-  } else {
-    const markers = store.getState().data.markers;
-    const id = store.getState().authDetails.id;
-    db.ref("users/" + id)
-      .set({
-        markers,
-      })
-      .then(() => {});
-  }
 };
 
 export const retrieveMarkers = () => {
-  // if user is logged out due to any reason, try to help them log in back
-  if (!auth().currentUser) {
-    signInWithGoogle().then(() => {
-      const id = store.getState().authDetails.id;
-      db.ref("users/" + id)
-        .once("value")
-        .then((snapshot) => {
-          if (!!snapshot.val() && !!snapshot.val().markers) {
-            setMarkers(snapshot.val().markers);
-          }
-        });
+  const id = store.getState().authDetails.id;
+  if (!id) return;
+  db.ref("users/" + id)
+    .once("value")
+    .then((snapshot) => {
+      if (!!snapshot.val() && !!snapshot.val().markers) {
+        setMarkers(snapshot.val().markers);
+        alert("Markers have been downloaded from cloud");
+      }
+    })
+    .catch((err) => {
+      alert(err);
     });
-  } else {
-    const id = store.getState().authDetails.id;
-    db.ref("users/" + id)
-      .once("value")
-      .then((snapshot) => {
-        if (!!snapshot.val() && !!snapshot.val().markers) {
-          setMarkers(snapshot.val().markers);
-        }
-      });
-  }
 };
 
 export const getHoursDiff = (t) => {

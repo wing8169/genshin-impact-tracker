@@ -1,4 +1,4 @@
-import React, { useState, useRef, Fragment, useEffect } from "react";
+import React, { useState, useRef, Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import teyvat from "../../images/teyvat.webp";
 import { Map, ImageOverlay, Marker, Popup } from "react-leaflet";
@@ -174,11 +174,6 @@ const MyMap = () => {
     if (!!mapRef && !!mapRef.current && !!mapRef.current.leafletElement)
       mapRef.current.leafletElement.flyTo([marker.lat, marker.lng], 0.5);
   };
-
-  useEffect(() => {
-    // sync db once
-    retrieveMarkers();
-  }, []);
 
   return (
     <Fragment>

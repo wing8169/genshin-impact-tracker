@@ -8,6 +8,7 @@ import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
 import genshinImg from "../../images/genshin-impact.png";
 import { Helmet } from "react-helmet";
+import { retrieveMarkers } from "../../services/helper";
 
 const styles = {
   paper: {
@@ -65,6 +66,7 @@ class Login extends Component {
     this.setState({ error: "" });
     try {
       await signInWithGoogle();
+      retrieveMarkers();
       history.push("/");
     } catch (error) {
       this.setState({ error: error.message });
