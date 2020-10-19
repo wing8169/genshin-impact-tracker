@@ -54,7 +54,8 @@ ReactJS front end with Firebase database, private usage no plan to release yet
 - [x] On-Click Create Markers UI
 - [x] N Hours Since Found Filter
 - [x] Logic On Estimating Respawn Time
-- [ ] On-Click Marker See Recent Activities
+- [x] Side Menu See Recent Activities
+- [x] Side Menu Activities On-Click Navigate Markers
 - [ ] Integrate Markers To Firebase
 
 # Contribution
