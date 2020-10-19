@@ -41,7 +41,6 @@ export const retrieveMarkers = () => {
         .then((snapshot) => {
           if (!!snapshot.val() && !!snapshot.val().markers) {
             setMarkers(snapshot.val().markers);
-            alert("Markers have been downloaded from cloud");
           }
         });
     });
@@ -52,7 +51,6 @@ export const retrieveMarkers = () => {
       .then((snapshot) => {
         if (!!snapshot.val() && !!snapshot.val().markers) {
           setMarkers(snapshot.val().markers);
-          alert("Markers have been downloaded from cloud");
         }
       });
   }
