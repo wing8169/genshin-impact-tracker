@@ -1,25 +1,62 @@
 import { auth } from "./firebase";
-import { db } from "./firebase"
+import { db } from "./firebase";
+import { store } from "../redux/store";
+import { setMarkers } from "../redux/dispatchers";
+import { signInWithGoogle } from "./auth";
 
-export const syncMarkers = async (markers) => {
-  await db.ref("users/" + auth().currentUser.uid).set({
-      markers
-  })
-}
+export const backupMarkers = () => {
+  // if user is logged out due to any reason, try to help them log in back
+  if (!auth().currentUser) {
+    signInWithGoogle().then(() => {
+      const markers = store.getState().data.markers;
+      const id = store.getState().authDetails.id;
+      db.ref("users/" + id)
+        .set({
+          markers,
+        })
+        .then(() => {
+          alert("Data back up successfully!");
+        });
+    });
+  } else {
+    const markers = store.getState().data.markers;
+    const id = store.getState().authDetails.id;
+    db.ref("users/" + id)
+      .set({
+        markers,
+      })
+      .then(() => {
+        alert("Data back up successfully!");
+      });
+  }
+};
 
-export const retrieveMarkers = async () => {
-    auth().onAuthStateChanged((user) => {
-        if(user) {
-            db.ref('users/' + user.uid).on('value', (snapshot) => {
-              if(snapshot.val()==null){
-                console.log(null)
-              }else{
-                console.log(snapshot.val().markers)
-              }
-            })
+export const retrieveMarkers = () => {
+  // if user is logged out due to any reason, try to help them log in back
+  if (!auth().currentUser) {
+    signInWithGoogle().then(() => {
+      const id = store.getState().authDetails.id;
+      db.ref("users/" + id)
+        .once("value")
+        .then((snapshot) => {
+          if (!!snapshot.val() && !!snapshot.val().markers) {
+            setMarkers(snapshot.val().markers);
+            alert("Markers have been downloaded from cloud");
+          }
+        });
+    });
+  } else {
+    const id = store.getState().authDetails.id;
+    db.ref("users/" + id)
+      .once("value")
+      .then((snapshot) => {
+        if (!!snapshot.val() && !!snapshot.val().markers) {
+          setMarkers(snapshot.val().markers);
+          alert("Markers have been downloaded from cloud");
         }
-    })
-}
+      });
+  }
+};
 
 export const getHoursDiff = (t) => {
   return Math.round(
@@ -28,5 +65,5 @@ export const getHoursDiff = (t) => {
 };
 
 export const addHours = (t, h) => {
-  return t.getTime() + h * 60 * 60 * 1000;
+  return t + h * 60 * 60 * 1000;
 };

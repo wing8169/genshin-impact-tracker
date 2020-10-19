@@ -59,10 +59,9 @@ const Tutorial = () => {
             <b>at least twice.</b> <br />
             <br />
             <b>
-              The current version does not support cloud syncing, your data will
-              only be accessible to your device.{" "}
+              Don't forget to upload your data to cloud from time to time to
+              avoid data loss!
             </b>
-            We are working on cloud syncing and will be up soon!
           </DialogContentText>
         </DialogContent>
         <DialogActions>

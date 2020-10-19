@@ -49,7 +49,7 @@ const MarkersMenu = (props) => {
             style={{
               backgroundColor:
                 marker.shortestRespawn !== -1 &&
-                marker.estimatedRespawn < new Date()
+                marker.estimatedRespawn < new Date().getTime()
                   ? "#f50057"
                   : "white",
             }}

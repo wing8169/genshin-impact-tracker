@@ -51,7 +51,7 @@ const CreateForm = (props) => {
       type: type,
       lat: props.latlng.lat,
       lng: props.latlng.lng,
-      lastFound: new Date(),
+      lastFound: new Date().getTime(),
       estimatedRespawn: -1,
       shortestRespawn: -1,
       recentRespawn: -1,
@@ -62,7 +62,7 @@ const CreateForm = (props) => {
     addActivity({
       action: "Created",
       type: type,
-      time: new Date(),
+      time: new Date().getTime(),
       marker: marker,
     });
     props.setOpen(false);

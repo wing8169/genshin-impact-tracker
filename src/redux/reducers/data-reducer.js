@@ -17,7 +17,7 @@ export const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case SET_MARKERS:
-      const markers = action.payload;
+      const markers = action.payload.markers;
       // sort markers
       markers.sort(function (a, b) {
         if (a.recentRespawn === -1 || a.shortestRespawn === -1) return 1;

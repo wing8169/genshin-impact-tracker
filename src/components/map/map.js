@@ -11,22 +11,26 @@ import IconButton from "@material-ui/core/IconButton";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { DateSlider } from "../date-slider";
-import { addHours, getHoursDiff } from "../../services/helper";
+import {
+  addHours,
+  backupMarkers,
+  getHoursDiff,
+  retrieveMarkers,
+} from "../../services/helper";
 import {
   addActivity,
   removeMarker,
   setHours,
   updateMarker,
-  setMarkers
 } from "../../redux/dispatchers";
 import Button from "@material-ui/core/Button";
 import { MarkersMenu } from "../markers-menu";
 import NotificationsIcon from "@material-ui/icons/Notifications";
+import Tooltip from "@material-ui/core/Tooltip";
 import { Helmet } from "react-helmet";
 import { Tutorial } from "../tutorial";
-import SyncIcon from '@material-ui/icons/Sync';
-import {syncMarkers,retrieveMarkers} from '../../services/helper'
-import GetAppIcon from '@material-ui/icons/GetApp';
+import SyncIcon from "@material-ui/icons/Sync";
+import BackupIcon from "@material-ui/icons/Backup";
 
 const useStyles = makeStyles((theme) => ({
   background: {
@@ -73,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 10,
     opacity: 1,
     backgroundColor: "#4aa4e0",
-  }
+  },
 }));
 
 const MyMap = () => {
@@ -114,33 +118,32 @@ const MyMap = () => {
       addActivity({
         action: "Deleted",
         type: marker.type,
-        time: new Date(),
+        time: new Date().getTime(),
         marker: marker,
       });
     }
   };
 
-  const saveMarkers = (markers) => {
-    let decision = window.confirm(
-      "Are you sure you want to sync the markers?"
+  const saveMarkers = () => {
+    const decision = window.confirm(
+      "Are you sure you want to backup the markers?"
     );
-    if(!!decision) {
-      syncMarkers(markers)
+    if (!!decision) {
+      backupMarkers();
     }
-
-  }
+  };
 
   const getMarkers = () => {
-    let decision = window.confirm(
-      "Are you sure you want to retrieve the markers stored from cloud?"
+    const decision = window.confirm(
+      "Are you sure you want to retrieve the markers on cloud and overwrite your local data?"
     );
-    if(!!decision) {
-     retrieveMarkers()
+    if (!!decision) {
+      retrieveMarkers();
     }
-  }
+  };
 
   const foundMarker = (marker) => {
-    let decision = window.confirm("Found the marker again?");
+    const decision = window.confirm("Found the marker again?");
     if (!!decision) {
       // get marker lastFound and count the hours diff
       let hoursDiff = getHoursDiff(marker.lastFound);
@@ -150,7 +153,7 @@ const MyMap = () => {
       // update the recent respawn time
       marker.recentRespawn = hoursDiff;
       // update marker lastFound
-      marker.lastFound = new Date();
+      marker.lastFound = new Date().getTime();
       // update the estimated found time (Current logic is using the shortest respawn)
       marker.estimatedRespawn = addHours(marker.lastFound, hoursDiff);
       // update to redux
@@ -159,7 +162,7 @@ const MyMap = () => {
       addActivity({
         action: "Found again",
         type: marker.type,
-        time: new Date(),
+        time: new Date().getTime(),
         marker: marker,
       });
     }
@@ -186,31 +189,43 @@ const MyMap = () => {
           a complete RNG or there is a logic behind."
         />
       </Helmet>
-      <IconButton aria-label="menu" className={classes.menu} onClick={openMenu}>
-        <MenuIcon />
-      </IconButton>
-      <IconButton
-        aria-label="menu"
-        className={classes.markersMenu}
-        onClick={openMarkersMenu}
-      >
-        <NotificationsIcon />
-      </IconButton>
-      <IconButton
-        aria-label="menu"
-        className={classes.syncButton}
-        onClick={()=>saveMarkers(markers)}
-      >
-        <SyncIcon />
-      </IconButton>
-      <IconButton
-        aria-label="menu"
-        className={classes.retrieveButton}
-        onClick={()=>getMarkers()}
-      >
-        <GetAppIcon/>
-      </IconButton>
-      <Tutorial/>
+      <Tooltip title="Menu" aria-label="menu">
+        <IconButton
+          aria-label="menu"
+          className={classes.menu}
+          onClick={openMenu}
+        >
+          <MenuIcon />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="Markers" aria-label="markers">
+        <IconButton
+          aria-label="markers"
+          className={classes.markersMenu}
+          onClick={openMarkersMenu}
+        >
+          <NotificationsIcon />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="Backup to Cloud" aria-label="backup">
+        <IconButton
+          aria-label="backup"
+          className={classes.syncButton}
+          onClick={saveMarkers}
+        >
+          <BackupIcon />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="Download from Cloud" aria-label="sync">
+        <IconButton
+          aria-label="sync"
+          className={classes.retrieveButton}
+          onClick={getMarkers}
+        >
+          <SyncIcon />
+        </IconButton>
+      </Tooltip>
+      <Tutorial />
       <CreateForm open={open} setOpen={setOpen} latlng={latlng} />
       <SideMenu
         open={menuOpen}
