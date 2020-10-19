@@ -22,6 +22,7 @@ import Button from "@material-ui/core/Button";
 import { MarkersMenu } from "../markers-menu";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import { Helmet } from "react-helmet";
+import { Tutorial } from "../tutorial";
 
 const useStyles = makeStyles((theme) => ({
   background: {
@@ -156,6 +157,7 @@ const MyMap = () => {
       >
         <NotificationsIcon />
       </IconButton>
+      <Tutorial/>
       <CreateForm open={open} setOpen={setOpen} latlng={latlng} />
       <SideMenu
         open={menuOpen}
