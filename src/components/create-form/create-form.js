@@ -9,7 +9,7 @@ import Paper from "@material-ui/core/Paper";
 import Draggable from "react-draggable";
 import RoomIcon from "@material-ui/icons/Room";
 import { makeStyles } from "@material-ui/core/styles";
-import { addMarker } from "../../redux/dispatchers";
+import { addActivity, addMarker } from "../../redux/dispatchers";
 import { v4 } from "uuid";
 
 const useStyles = makeStyles((theme) => ({
@@ -46,7 +46,7 @@ const CreateForm = (props) => {
       alert("Unable to retrieve position info, please try again.");
       return;
     }
-    addMarker({
+    const marker = {
       id: v4(),
       type: type,
       lat: props.latlng.lat,
@@ -55,8 +55,16 @@ const CreateForm = (props) => {
       estimatedRespawn: -1,
       shortestRespawn: -1,
       recentRespawn: -1,
-    });
+    };
     // Create marker locally
+    addMarker(marker);
+    // add activity
+    addActivity({
+      action: "Created",
+      type: type,
+      time: new Date(),
+      marker: marker,
+    });
     props.setOpen(false);
   };
 

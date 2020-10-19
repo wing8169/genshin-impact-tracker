@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import teyvat from "../../images/teyvat.webp";
 import { Map, ImageOverlay, Marker, Popup } from "react-leaflet";
@@ -12,7 +12,12 @@ import { useSelector } from "react-redux";
 import moment from "moment";
 import { DateSlider } from "../date-slider";
 import { addHours, getHoursDiff } from "../../services/helper";
-import { removeMarker, setHours, updateMarker } from "../../redux/dispatchers";
+import {
+  addActivity,
+  removeMarker,
+  setHours,
+  updateMarker,
+} from "../../redux/dispatchers";
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
@@ -46,6 +51,7 @@ const MyMap = () => {
   const [latlng, setLatlng] = useState(null);
   const markers = useSelector((state) => state.data.markers);
   const hours = useSelector((state) => state.data.hours);
+  const mapRef = useRef();
 
   const onClick = (e) => {
     // Open create marker form
@@ -61,11 +67,20 @@ const MyMap = () => {
     setHours(value);
   };
 
-  const deleteMarker = (id) => {
+  const deleteMarker = (marker) => {
     let decision = window.confirm(
       "Are you sure you want to permanently delete the marker?"
     );
-    if (!!decision) removeMarker(id);
+    if (!!decision) {
+      removeMarker(marker.id);
+      // add activity
+      addActivity({
+        action: "Deleted",
+        type: marker.type,
+        time: new Date(),
+        marker: marker,
+      });
+    }
   };
 
   const foundMarker = (marker) => {
@@ -84,7 +99,21 @@ const MyMap = () => {
       marker.estimatedRespawn = addHours(marker.lastFound, hoursDiff);
       // update to redux
       updateMarker(marker);
+      // add activity
+      addActivity({
+        action: "Found again",
+        type: marker.type,
+        time: new Date(),
+        marker: marker,
+      });
     }
+  };
+
+  const focusMarker = (marker) => {
+    if (!marker) return;
+    // focus on the selected coordinates
+    if (!!mapRef && !!mapRef.current && !!mapRef.current.leafletElement)
+      mapRef.current.leafletElement.flyTo([marker.lat, marker.lng], 0.5);
   };
 
   return (
@@ -93,7 +122,11 @@ const MyMap = () => {
         <MenuIcon />
       </IconButton>
       <CreateForm open={open} setOpen={setOpen} latlng={latlng} />
-      <SideMenu open={menuOpen} setOpen={setMenuOpen} />
+      <SideMenu
+        open={menuOpen}
+        setOpen={setMenuOpen}
+        focusMarker={focusMarker}
+      />
       <DateSlider setValue={updateHours} />
       <Map
         center={[3000, 3000]}
@@ -106,6 +139,7 @@ const MyMap = () => {
         bounds={new LatLngBounds(new LatLng(0, 6144), new LatLng(6144, 0))}
         maxBounds={new LatLngBounds(new LatLng(0, 6144), new LatLng(6144, 0))}
         onClick={onClick}
+        ref={mapRef}
       >
         <ImageOverlay
           url={teyvat}
@@ -147,7 +181,7 @@ const MyMap = () => {
                   variant="contained"
                   color="secondary"
                   size={"small"}
-                  onClick={() => deleteMarker(marker.id)}
+                  onClick={() => deleteMarker(marker)}
                 >
                   Remove Marker
                 </Button>

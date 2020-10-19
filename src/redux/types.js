@@ -7,3 +7,4 @@ export const UPDATE_MARKER = "UPDATE_MARKER";
 export const REMOVE_MARKER = "REMOVE_MARKER";
 export const CLEAR_DATA = "CLEAR_DATA";
 export const SET_HOURS = "SET_HOURS";
+export const ADD_ACTIVITY = "ADD_ACTIVITY";

@@ -5,6 +5,7 @@ import {
   SET_HOURS,
   REMOVE_MARKER,
   UPDATE_MARKER,
+  ADD_ACTIVITY,
 } from "../types";
 
 export const setMarkersAction = (markers) => {
@@ -54,6 +55,15 @@ export const updateMarkerAction = (marker) => {
     type: UPDATE_MARKER,
     payload: {
       marker,
+    },
+  };
+};
+
+export const addActivityAction = (activity) => {
+  return {
+    type: ADD_ACTIVITY,
+    payload: {
+      activity,
     },
   };
 };

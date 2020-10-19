@@ -2,18 +2,19 @@ import { createStore } from "redux";
 import { persistStore, persistReducer, createMigrate } from "redux-persist";
 import localStorage from "redux-persist/lib/storage";
 import reducers from "./reducers";
+import { initialState } from "./reducers/data-reducer";
 
 const MIGRATION_DEBUG = false;
 
 const migrations = {
-  2: (state) => {
-    return { ...state };
+  4: (state) => {
+    return { ...initialState };
   },
 };
 
 const persistConfig = {
   key: "root",
-  version: 2,
+  version: 4,
   migrate: createMigrate(migrations, { debug: MIGRATION_DEBUG }),
   storage: localStorage,
   whitelist: ["authDetails", "data"], // which reducer want to store

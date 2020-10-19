@@ -5,11 +5,13 @@ import {
   SET_HOURS,
   REMOVE_MARKER,
   UPDATE_MARKER,
+  ADD_ACTIVITY,
 } from "../types";
 
-const initialState = {
+export const initialState = {
   markers: [],
   hours: 0,
+  activities: [],
 };
 
 export default (state = initialState, action) => {
@@ -38,6 +40,16 @@ export default (state = initialState, action) => {
       return { ...state, hours: action.payload.hours };
     case CLEAR_DATA:
       return initialState;
+    case ADD_ACTIVITY:
+      const newActivities = state.activities;
+      newActivities.unshift(action.payload.activity);
+      // trim activities to record only 14 latest activities
+      if (newActivities.length > 14)
+        newActivities.splice(
+          14 - newActivities.length,
+          newActivities.length - 14
+        );
+      return { ...state, activities: newActivities };
     default:
       return state;
   }

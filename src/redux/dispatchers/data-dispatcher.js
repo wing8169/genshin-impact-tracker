@@ -6,6 +6,7 @@ import {
   setHoursAction,
   removeMarkerAction,
   updateMarkerAction,
+  addActivityAction,
 } from "../actions";
 
 export const setMarkers = (markers) => {
@@ -30,4 +31,8 @@ export const removeMarker = (id) => {
 
 export const updateMarker = (marker) => {
   store.dispatch(updateMarkerAction(marker));
+};
+
+export const addActivity = (activity) => {
+  store.dispatch(addActivityAction(activity));
 };

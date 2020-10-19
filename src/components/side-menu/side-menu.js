@@ -9,6 +9,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import { useSelector } from "react-redux";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { signOut } from "../../services/auth";
+import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import moment from "moment";
 
 const useStyles = makeStyles({
   list: {
@@ -19,6 +21,7 @@ const useStyles = makeStyles({
 const SideMenu = (props) => {
   const classes = useStyles();
   const name = useSelector((state) => state.authDetails.displayName);
+  const activities = useSelector((state) => state.data.activities);
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -48,14 +51,34 @@ const SideMenu = (props) => {
       </List>
       <Divider />
       <List>
-        <ListItem key={"activity"}>
-          <ListItemText primary={"Activity"} />
+        <ListItem key={"activities"}>
+          <ListItemText primary={"Activities"} />
         </ListItem>
-        <ListItem>
-          <ListItemText
-            secondary={"The section is currently under development"}
-          />
-        </ListItem>
+      </List>
+      <List
+        style={{
+          marginTop: 0,
+          paddingTop: 0,
+          maxHeight: 300,
+          overflowY: "auto",
+        }}
+      >
+        {activities.map((activity, ind) => (
+          <ListItem
+            button
+            key={`activity ${ind}`}
+            onClick={() => props.focusMarker(activity.marker)}
+          >
+            <ListItemText
+              secondary={`${activity.action} ${
+                activity.type
+              } marker at ${moment(activity.time).toString()}`}
+            />
+            <ListItemIcon>
+              <NavigateNextIcon />
+            </ListItemIcon>
+          </ListItem>
+        ))}
       </List>
       <Divider />
       <List>
