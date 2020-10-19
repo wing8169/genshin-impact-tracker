@@ -14,9 +14,7 @@ export const backupMarkers = () => {
         .set({
           markers,
         })
-        .then(() => {
-          alert("Data back up successfully!");
-        });
+        .then(() => {});
     });
   } else {
     const markers = store.getState().data.markers;
@@ -25,9 +23,7 @@ export const backupMarkers = () => {
       .set({
         markers,
       })
-      .then(() => {
-        alert("Data back up successfully!");
-      });
+      .then(() => {});
   }
 };
 
