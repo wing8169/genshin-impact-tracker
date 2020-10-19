@@ -16,6 +16,7 @@
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-draggable": "^4.4.3",
+    "react-helmet": "^6.1.0",
     "react-leaflet": "^2.7.0",
     "react-moment": "^1.0.0",
     "react-redux": "^7.2.1",

@@ -6,6 +6,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import genshinImg from "../../images/genshin-impact.png";
+import { Helmet } from "react-helmet";
 
 const styles = {
   paper: {
@@ -72,6 +73,18 @@ class Login extends Component {
   render() {
     return (
       <>
+        <Helmet>
+          <title>
+            Genshin Impact Tracker | Track Your Resources and Study the Respawn
+            Time
+          </title>
+          <meta
+            name="description"
+            content="Genshin Impact Tracker is a personal application to track and study the resources respawn time.
+          This is a research-based project and requires data entry to study whether the respawn time of Genshin Impact is
+          a complete RNG or there is a logic behind."
+          />
+        </Helmet>
         <img src={genshinImg} alt={"bg"} className={this.props.classes.bg} />
         <div className={this.props.classes.paper}>
           <Typography

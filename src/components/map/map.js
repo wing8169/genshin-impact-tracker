@@ -21,6 +21,7 @@ import {
 import Button from "@material-ui/core/Button";
 import { MarkersMenu } from "../markers-menu";
 import NotificationsIcon from "@material-ui/icons/Notifications";
+import { Helmet } from "react-helmet";
 
 const useStyles = makeStyles((theme) => ({
   background: {
@@ -133,6 +134,18 @@ const MyMap = () => {
 
   return (
     <>
+      <Helmet>
+        <title>
+          Genshin Impact Tracker | Track Your Resources and Study the Respawn
+          Time
+        </title>
+        <meta
+          name="description"
+          content="Genshin Impact Tracker is a personal application to track and study the resources respawn time.
+          This is a research-based project and requires data entry to study whether the respawn time of Genshin Impact is
+          a complete RNG or there is a logic behind."
+        />
+      </Helmet>
       <IconButton aria-label="menu" className={classes.menu} onClick={openMenu}>
         <MenuIcon />
       </IconButton>
