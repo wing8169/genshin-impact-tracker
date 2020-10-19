@@ -63,7 +63,7 @@ ReactJS front end integrated with Firebase database.
 - [x] Side Menu See Recent Activities
 - [x] Side Menu Activities On-Click Navigate Markers
 - [x] Markers Notifier
-- [ ] Integrate Markers To Firebase
+- [x] Integrate Markers To Firebase
 
 # Contribution
 
