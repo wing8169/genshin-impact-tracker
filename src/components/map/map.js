@@ -254,6 +254,7 @@ const MyMap = () => {
           url={teyvat}
           bounds={new LatLngBounds(new LatLng(0, 6144), new LatLng(6144, 0))}
           maxBounds={new LatLngBounds(new LatLng(0, 6144), new LatLng(6144, 0))}
+          attribution='Thank you <a href="https://forums.mihoyo.com/genshin/accountCenter/postList?id=1092397">Newtrat</a> for sharing the CBT map.'
         />
         {markers.map((marker, idx) =>
           getHoursDiff(marker.lastFound) >= hours ? (
