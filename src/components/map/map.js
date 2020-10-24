@@ -30,6 +30,8 @@ import { Helmet } from "react-helmet";
 import { Tutorial } from "../tutorial";
 import SyncIcon from "@material-ui/icons/Sync";
 import BackupIcon from "@material-ui/icons/Backup";
+import { Link } from "react-router-dom";
+import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 
 const useStyles = makeStyles((theme) => ({
   background: {
@@ -46,14 +48,6 @@ const useStyles = makeStyles((theme) => ({
     opacity: 1,
     backgroundColor: "#4aa4e0",
   },
-  markersMenu: {
-    position: "fixed",
-    top: 30,
-    right: 30,
-    zIndex: 10,
-    opacity: 1,
-    backgroundColor: "#4aa4e0",
-  },
   button: {
     position: "fixed",
     bottom: 30,
@@ -61,7 +55,15 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 10,
     opacity: 1,
   },
-  syncButton: {
+  expButton: {
+    position: "fixed",
+    top: 30,
+    right: 30,
+    zIndex: 10,
+    opacity: 1,
+    backgroundColor: "#f50057",
+  },
+  markersMenu: {
     position: "fixed",
     top: 100,
     right: 30,
@@ -69,9 +71,17 @@ const useStyles = makeStyles((theme) => ({
     opacity: 1,
     backgroundColor: "#4aa4e0",
   },
-  retrieveButton: {
+  syncButton: {
     position: "fixed",
     top: 170,
+    right: 30,
+    zIndex: 10,
+    opacity: 1,
+    backgroundColor: "#4aa4e0",
+  },
+  retrieveButton: {
+    position: "fixed",
+    top: 240,
     right: 30,
     zIndex: 10,
     opacity: 1,
@@ -204,6 +214,16 @@ const MyMap = () => {
           onClick={openMarkersMenu}
         >
           <NotificationsIcon />
+        </IconButton>
+      </Tooltip>
+      <Tooltip
+        title="Experience Calculator"
+        aria-label="exp"
+        component={Link}
+        to="/experience"
+      >
+        <IconButton aria-label="sync" className={classes.expButton}>
+          <LibraryBooksIcon />
         </IconButton>
       </Tooltip>
       <Tooltip title="Backup to Cloud" aria-label="backup">

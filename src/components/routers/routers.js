@@ -12,6 +12,7 @@ import { persistor } from "../../redux/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { clearAuthDetails, setAuthDetails } from "../../redux/dispatchers";
 import { connect } from "react-redux";
+import { ExperienceCalculator } from "../experience-calculator";
 
 function PrivateRoute({ component: Component, authenticated, ...rest }) {
   return (
@@ -59,6 +60,12 @@ class Routers extends Component {
               exact
               path="/"
               component={Map}
+              authenticated={!!this.props.id}
+            />
+            <PrivateRoute
+              exact
+              path="/experience"
+              component={ExperienceCalculator}
               authenticated={!!this.props.id}
             />
             <PublicRoute
