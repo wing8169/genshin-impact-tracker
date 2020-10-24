@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     right: 30,
     zIndex: 10,
     opacity: 1,
-    backgroundColor: "#4aa4e0",
+    backgroundColor: "#f50057",
   },
   bg: {
     width: "100vw",
