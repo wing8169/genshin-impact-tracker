@@ -108,7 +108,7 @@ const expList = [
   61275,
   63525,
   65800,
-  69125,
+  68125,
   70475,
   76500,
   79050,
@@ -130,26 +130,36 @@ const expList = [
   131400,
   134775,
   138175,
-  201325,
-  206300,
-  211300,
-  216375,
-  221500,
-  226700,
-  231925,
-  237225,
-  242575,
-  248000,
-  319375,
-  342650,
-  367525,
-  394125,
-  422550,
-  452925,
-  485375,
-  520050,
-  557075,
-  596600,
+  148700,
+  152375,
+  156075,
+  159825,
+  163600,
+  167425,
+  171300,
+  175225,
+  179175,
+  183175,
+  // 201325,
+  // 206300,
+  // 211300,
+  // 216375,
+  // 221500,
+  // 226700,
+  // 231925,
+  // 237225,
+  // 242575,
+  // 248000,
+  // 319375,
+  // 342650,
+  // 367525,
+  // 394125,
+  // 422550,
+  // 452925,
+  // 485375,
+  // 520050,
+  // 557075,
+  // 596600,
 ];
 
 const ExperienceCalculator = () => {
@@ -180,6 +190,17 @@ const ExperienceCalculator = () => {
       currentSmall * 1000 + currentMedium * 5000 + currentLarge * 20000;
     setExpAvailable(totalExpAvailable);
     // validation
+    if (
+      currentLevel < 1 ||
+      currentLevel > 80 ||
+      targetLevel < 1 ||
+      targetLevel > 80
+    ) {
+      setError(
+        "Invalid level. Current maximum level capped at 80 due to lack of information, sorry for the inconvenience."
+      );
+      return;
+    }
     if (currentLevel >= targetLevel) {
       setError("Already achieved the target level.");
       return;
@@ -255,7 +276,7 @@ const ExperienceCalculator = () => {
             type="number"
             fullWidth
             className={classes.formItem}
-            InputProps={{ inputProps: { min: 1, max: 90 } }}
+            InputProps={{ inputProps: { min: 1, max: 80 } }}
             value={currentLevel}
             onChange={(e) => {
               setCurrentLevel(parseInt(e.target.value));
@@ -315,7 +336,7 @@ const ExperienceCalculator = () => {
             type="number"
             fullWidth
             className={classes.formItem}
-            InputProps={{ inputProps: { min: 2, max: 90 } }}
+            InputProps={{ inputProps: { min: 2, max: 80 } }}
             value={targetLevel}
             onChange={(e) => {
               setTargetLevel(parseInt(e.target.value));
