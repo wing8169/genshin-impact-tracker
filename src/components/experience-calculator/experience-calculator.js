@@ -164,6 +164,7 @@ const ExperienceCalculator = () => {
   const [expAvailable, setExpAvailable] = useState(0);
   const [expRemaining, setExpRemaining] = useState(0);
   const [expNeeded, setExpNeeded] = useState(0);
+  const [moraNeeded, setMoraNeeded] = useState(0);
   const [calculated, setCalculated] = useState(false);
 
   const calculate = (e) => {
@@ -197,6 +198,7 @@ const ExperienceCalculator = () => {
       else totalExpNeeded += expList[i];
     }
     setExpNeeded(totalExpNeeded);
+    setMoraNeeded(totalExpNeeded / 5);
     // calculate remaining experience materials after levelling
     let totalExpRemaining = totalExpAvailable - totalExpNeeded;
     setExpRemaining(totalExpRemaining);
@@ -335,6 +337,13 @@ const ExperienceCalculator = () => {
                 className={classes.formItem}
               >
                 Total Experience Needed to Level Up: {expNeeded}
+              </Typography>
+              <Typography
+                variant="subtitle2"
+                align="center"
+                className={classes.formItem}
+              >
+                Total Mora Needed to Level Up: {moraNeeded}
               </Typography>
               <Typography
                 variant="subtitle2"
