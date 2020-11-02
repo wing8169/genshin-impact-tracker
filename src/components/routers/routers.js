@@ -62,12 +62,7 @@ class Routers extends Component {
               component={Map}
               authenticated={!!this.props.id}
             />
-            <PrivateRoute
-              exact
-              path="/experience"
-              component={ExperienceCalculator}
-              authenticated={!!this.props.id}
-            />
+            <Route exact path="/experience" component={ExperienceCalculator} />
             <PublicRoute
               exact
               path="/signin"

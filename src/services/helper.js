@@ -1,6 +1,7 @@
 import { db } from "./firebase";
 import { store } from "../redux/store";
 import { setMarkers } from "../redux/dispatchers";
+import { leylineExpList } from "../constants/leyline";
 
 export const backupMarkers = () => {
   const markers = store.getState().data.markers;
@@ -41,4 +42,22 @@ export const getHoursDiff = (t) => {
 
 export const addHours = (t, h) => {
   return t + h * 60 * 60 * 1000;
+};
+
+export const getLeyline = (ar) => {
+  const currentLeylineExp = leylineExpList.filter(
+    (leyline) => ar >= leyline.minAr && ar <= leyline.maxAr
+  );
+  if (currentLeylineExp.length === 0) {
+    return null;
+  }
+  return currentLeylineExp[0];
+};
+
+export const ceilNumber = (num, place) => {
+  let div = 1;
+  for (let i = 0; i < place; i++) {
+    div *= 10;
+  }
+  return Math.ceil(num / div) * div;
 };

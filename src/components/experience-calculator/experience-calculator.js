@@ -9,6 +9,15 @@ import genshinImg from "../../images/genshin-impact.png";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import { characterExpList } from "../../constants/character";
+import { ceilNumber, getLeyline } from "../../services/helper";
+import TableContainer from "@material-ui/core/TableContainer";
+import { Paper } from "@material-ui/core";
+import Table from "@material-ui/core/Table";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import TableCell from "@material-ui/core/TableCell";
+import TableBody from "@material-ui/core/TableBody";
 
 const useStyles = makeStyles((theme) => ({
   mapButton: {
@@ -55,116 +64,28 @@ const useStyles = makeStyles((theme) => ({
   formItem: {
     marginBottom: 20,
   },
+  tableHeader: {
+    backgroundColor: "#424242",
+    color: "white",
+  },
+  greenTableHeader: {
+    backgroundColor: "#4ae645",
+  },
+  blueTableHeader: {
+    backgroundColor: "#45c6e6",
+  },
+  purpleTableHeader: {
+    backgroundColor: "#a845e6",
+  },
+  goldTableHeader: {
+    backgroundColor: "#e6e045",
+  },
 }));
-
-// expList represents the amount of experience needed to level up in each level (level 1 is index 1, NOT 0)
-const expList = [
-  0,
-  1000,
-  1325,
-  1700,
-  2150,
-  2625,
-  3150,
-  3725,
-  4350,
-  5000,
-  5700,
-  6450,
-  7225,
-  8050,
-  8925,
-  9825,
-  10750,
-  11725,
-  12725,
-  13775,
-  14875,
-  16800,
-  18000,
-  19250,
-  20550,
-  21875,
-  23250,
-  24650,
-  26100,
-  27575,
-  29100,
-  30650,
-  32250,
-  33875,
-  35550,
-  37250,
-  38975,
-  40750,
-  42575,
-  44425,
-  46300,
-  50625,
-  52700,
-  54775,
-  56900,
-  59075,
-  61275,
-  63525,
-  65800,
-  68125,
-  70475,
-  76500,
-  79050,
-  81650,
-  84275,
-  86950,
-  89650,
-  92400,
-  95175,
-  98000,
-  100875,
-  108950,
-  112050,
-  115175,
-  118325,
-  121525,
-  124775,
-  128075,
-  131400,
-  134775,
-  138175,
-  148700,
-  152375,
-  156075,
-  159825,
-  163600,
-  167425,
-  171300,
-  175225,
-  179175,
-  183175,
-  // 201325,
-  // 206300,
-  // 211300,
-  // 216375,
-  // 221500,
-  // 226700,
-  // 231925,
-  // 237225,
-  // 242575,
-  // 248000,
-  // 319375,
-  // 342650,
-  // 367525,
-  // 394125,
-  // 422550,
-  // 452925,
-  // 485375,
-  // 520050,
-  // 557075,
-  // 596600,
-];
 
 const ExperienceCalculator = () => {
   const classes = useStyles();
   const [error, setError] = useState("");
+  const [ar, setAr] = useState(8);
   const [currentLevel, setCurrentLevel] = useState(1);
   const [currentExperience, setCurrentExperience] = useState(0);
   const [currentSmall, setCurrentSmall] = useState(0);
@@ -175,6 +96,15 @@ const ExperienceCalculator = () => {
   const [expRemaining, setExpRemaining] = useState(0);
   const [expNeeded, setExpNeeded] = useState(0);
   const [moraNeeded, setMoraNeeded] = useState(0);
+  const [smallNeeded, setSmallNeeded] = useState(0);
+  const [mediumNeeded, setMediumNeeded] = useState(0);
+  const [largeNeeded, setLargeNeeded] = useState(0);
+  const [minSmallLeyline, setMinSmallLeyline] = useState(0);
+  const [minMediumLeyline, setMinMediumLeyline] = useState(0);
+  const [minLargeLeyline, setMinLargeLeyline] = useState(0);
+  const [minLeylineExp, setMinLeylineExp] = useState(0);
+  const [leylineNeeded, setLeylineNeeded] = useState(0);
+  const [resinNeeded, setResinNeeded] = useState(0);
   const [calculated, setCalculated] = useState(false);
 
   const calculate = (e) => {
@@ -185,6 +115,15 @@ const ExperienceCalculator = () => {
     setExpAvailable(0);
     setExpRemaining(0);
     setExpNeeded(0);
+    setSmallNeeded(0);
+    setMediumNeeded(0);
+    setLargeNeeded(0);
+    setLeylineNeeded(0);
+    setResinNeeded(0);
+    setMinSmallLeyline(0);
+    setMinMediumLeyline(0);
+    setMinLargeLeyline(0);
+    setMinLeylineExp(0);
     // calculate total experience based on the materials
     const totalExpAvailable =
       currentSmall * 1000 + currentMedium * 5000 + currentLarge * 20000;
@@ -205,7 +144,7 @@ const ExperienceCalculator = () => {
       setError("Already achieved the target level.");
       return;
     }
-    if (expList[currentLevel] < currentExperience) {
+    if (characterExpList[currentLevel] < currentExperience) {
       setError(
         "Current experience exceeds the maximum experience in the current level."
       );
@@ -215,14 +154,52 @@ const ExperienceCalculator = () => {
     let totalExpNeeded = 0;
     for (let i = currentLevel; i < targetLevel; i++) {
       // deduct by current experience for the current level
-      if (i === currentLevel) totalExpNeeded += expList[i] - currentExperience;
-      else totalExpNeeded += expList[i];
+      if (i === currentLevel)
+        totalExpNeeded += characterExpList[i] - currentExperience;
+      else totalExpNeeded += characterExpList[i];
     }
     setExpNeeded(totalExpNeeded);
     setMoraNeeded(totalExpNeeded / 5);
     // calculate remaining experience materials after levelling
     let totalExpRemaining = totalExpAvailable - totalExpNeeded;
     setExpRemaining(totalExpRemaining);
+    // calculate experience materials needed
+    let currentExpNeeded = ceilNumber(totalExpNeeded, 3);
+    const totalLargeNeeded = Math.floor(currentExpNeeded / 20000);
+    setLargeNeeded(totalLargeNeeded);
+    currentExpNeeded -= totalLargeNeeded * 20000;
+    const totalMediumNeeded = Math.floor(currentExpNeeded / 5000);
+    setMediumNeeded(totalMediumNeeded);
+    currentExpNeeded -= totalMediumNeeded * 5000;
+    const totalSmallNeeded = Math.floor(currentExpNeeded / 1000);
+    setSmallNeeded(totalSmallNeeded);
+    // calculate leyline needed
+    const leyline = getLeyline(ar);
+    if (!!leyline) {
+      setMinSmallLeyline(leyline.small);
+      setMinMediumLeyline(leyline.medium);
+      setMinLargeLeyline(leyline.large);
+      const totalMinLeylineExp =
+        leyline.small * 1000 + leyline.medium * 5000 + leyline.large * 20000;
+      setMinLeylineExp(totalMinLeylineExp);
+      if (totalExpNeeded > 0) {
+        currentExpNeeded = ceilNumber(totalExpNeeded, 3);
+        const totalLeylineNeeded = Math.ceil(
+          currentExpNeeded / totalMinLeylineExp
+        );
+        setLeylineNeeded(totalLeylineNeeded);
+        setResinNeeded(totalLeylineNeeded * 20);
+      } else {
+        setLeylineNeeded(0);
+        setResinNeeded(0);
+      }
+    } else {
+      setLeylineNeeded(-1);
+      setResinNeeded(-1);
+      setMinSmallLeyline(-1);
+      setMinMediumLeyline(-1);
+      setMinLargeLeyline(-1);
+    }
     setCalculated(true);
   };
 
@@ -230,14 +207,13 @@ const ExperienceCalculator = () => {
     <>
       <Helmet>
         <title>
-          Genshin Impact Tracker | Track Your Resources and Study the Respawn
-          Time
+          Genshin Impact Experience Calculator | Track Your Character Experience
+          Points Time
         </title>
         <meta
           name="description"
-          content="Genshin Impact Tracker is a personal application to track and study the resources respawn time.
-          This is a research-based project and requires data entry to study whether the respawn time of Genshin Impact is
-          a complete RNG or there is a logic behind."
+          content="Genshin Impact Experience Calculator is a simple calculator to calculate the amount of experience needed to upgrade your
+          character to a target level. It also counts the number of experience materials required as well as the maximum resin required."
         />
       </Helmet>
       <img src={genshinImg} alt={"bg"} className={classes.bg} />
@@ -271,6 +247,17 @@ const ExperienceCalculator = () => {
             the selected level.
           </Typography>
           <TextField
+            label="Adventure Rank"
+            type="number"
+            fullWidth
+            className={classes.formItem}
+            InputProps={{ inputProps: { min: 1, max: 49 } }}
+            value={ar}
+            onChange={(e) => {
+              setAr(parseInt(e.target.value));
+            }}
+          />
+          <TextField
             id="currentLevel"
             label="Current Character Level"
             type="number"
@@ -296,7 +283,7 @@ const ExperienceCalculator = () => {
           />
           <TextField
             id="currentSmall"
-            label="Experience Materials (+ 1,000)"
+            label="Experience Materials - Wanderer's Advice (+ 1,000)"
             type="number"
             fullWidth
             className={classes.formItem}
@@ -308,7 +295,7 @@ const ExperienceCalculator = () => {
           />
           <TextField
             id="currentMedium"
-            label="Experience Materials (+ 5,000)"
+            label="Experience Materials - Adventurer's Experience (+ 5,000)"
             type="number"
             fullWidth
             className={classes.formItem}
@@ -320,7 +307,7 @@ const ExperienceCalculator = () => {
           />
           <TextField
             id="currentLarge"
-            label="Experience Materials (+ 20,000)"
+            label="Experience Materials - Hero's Wit (+ 20,000)"
             type="number"
             fullWidth
             className={classes.formItem}
@@ -344,36 +331,98 @@ const ExperienceCalculator = () => {
           />
           {error ? <p>{error}</p> : null}
           {calculated ? (
-            <>
-              <Typography
-                variant="subtitle2"
-                align="center"
-                className={classes.formItem}
-              >
-                Total Experience from the Materials: {expAvailable}
-              </Typography>
-              <Typography
-                variant="subtitle2"
-                align="center"
-                className={classes.formItem}
-              >
-                Total Experience Needed to Level Up: {expNeeded}
-              </Typography>
-              <Typography
-                variant="subtitle2"
-                align="center"
-                className={classes.formItem}
-              >
-                Total Mora Needed to Level Up: {moraNeeded}
-              </Typography>
-              <Typography
-                variant="subtitle2"
-                align="center"
-                className={classes.formItem}
-              >
-                Total Experience Remaining after Levelling: {expRemaining}
-              </Typography>
-            </>
+            <TableContainer component={Paper}>
+              <Table aria-label="table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell className={classes.tableHeader}>Item</TableCell>
+                    <TableCell align="right" className={classes.tableHeader}>
+                      Number
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      Total Experience from the Materials
+                    </TableCell>
+                    <TableCell align="right">{expAvailable}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      Total Experience Needed
+                    </TableCell>
+                    <TableCell align="right">{expNeeded}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      Total Experience Remaining
+                    </TableCell>
+                    <TableCell align="right">{expRemaining}</TableCell>
+                  </TableRow>
+                  <TableRow className={classes.goldTableHeader}>
+                    <TableCell component="th" scope="row">
+                      Total Mora Needed
+                    </TableCell>
+                    <TableCell align="right">{moraNeeded}</TableCell>
+                  </TableRow>
+                  <TableRow className={classes.greenTableHeader}>
+                    <TableCell component="th" scope="row">
+                      Total Wanderer's Advice Needed
+                    </TableCell>
+                    <TableCell align="right">{smallNeeded}</TableCell>
+                  </TableRow>
+                  <TableRow className={classes.blueTableHeader}>
+                    <TableCell component="th" scope="row">
+                      Total Adventurer's Experience Needed
+                    </TableCell>
+                    <TableCell align="right">{mediumNeeded}</TableCell>
+                  </TableRow>
+                  <TableRow className={classes.purpleTableHeader}>
+                    <TableCell component="th" scope="row">
+                      Total Hero's Wit Needed
+                    </TableCell>
+                    <TableCell align="right">{largeNeeded}</TableCell>
+                  </TableRow>
+                  <TableRow className={classes.greenTableHeader}>
+                    <TableCell component="th" scope="row">
+                      Minimum Wanderer's Advice Acquired Per Leyline Crop
+                    </TableCell>
+                    <TableCell align="right">{minSmallLeyline}</TableCell>
+                  </TableRow>
+                  <TableRow className={classes.blueTableHeader}>
+                    <TableCell component="th" scope="row">
+                      Minimum Adventurer's Experience Acquired Per Leyline Crop
+                    </TableCell>
+                    <TableCell align="right">{minMediumLeyline}</TableCell>
+                  </TableRow>
+                  <TableRow className={classes.purpleTableHeader}>
+                    <TableCell component="th" scope="row">
+                      Minimum Hero's Wit Acquired Per Leyline Crop
+                    </TableCell>
+                    <TableCell align="right">{minLargeLeyline}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      Minimum Total Experience Per Leyline Crop
+                    </TableCell>
+                    <TableCell align="right">{minLeylineExp}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      Maximum Leyline Crop Trip(s) Needed
+                    </TableCell>
+                    <TableCell align="right">{leylineNeeded}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      Maximum Resins Needed
+                    </TableCell>
+                    <TableCell align="right">{resinNeeded}</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </TableContainer>
           ) : null}
           <Button
             type="submit"
