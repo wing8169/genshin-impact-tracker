@@ -13,4 +13,8 @@
   <loc>https://genshin-impact-tracker.herokuapp.com/signin</loc>
   <lastmod>2020-10-19T05:43:08+00:00</lastmod>
 </url>
+  <url>
+    <loc>https://genshin-impact-tracker.herokuapp.com/experience</loc>
+    <lastmod>2020-10-19T05:43:08+00:00</lastmod>
+  </url>
 </urlset>
