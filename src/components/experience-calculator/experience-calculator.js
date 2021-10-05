@@ -131,13 +131,11 @@ const ExperienceCalculator = () => {
     // validation
     if (
       currentLevel < 1 ||
-      currentLevel > 80 ||
+      currentLevel > 90 ||
       targetLevel < 1 ||
-      targetLevel > 80
+      targetLevel > 90
     ) {
-      setError(
-        "Invalid level. Current maximum level capped at 80 due to lack of information, sorry for the inconvenience."
-      );
+      setError("Invalid level.");
       return;
     }
     if (currentLevel >= targetLevel) {
@@ -263,7 +261,7 @@ const ExperienceCalculator = () => {
             type="number"
             fullWidth
             className={classes.formItem}
-            InputProps={{ inputProps: { min: 1, max: 80 } }}
+            InputProps={{ inputProps: { min: 1, max: 90 } }}
             value={currentLevel}
             onChange={(e) => {
               setCurrentLevel(parseInt(e.target.value));
@@ -323,7 +321,7 @@ const ExperienceCalculator = () => {
             type="number"
             fullWidth
             className={classes.formItem}
-            InputProps={{ inputProps: { min: 2, max: 80 } }}
+            InputProps={{ inputProps: { min: 2, max: 90 } }}
             value={targetLevel}
             onChange={(e) => {
               setTargetLevel(parseInt(e.target.value));
