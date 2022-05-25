@@ -1,3 +1,7 @@
+![CI/CD](https://github.com/wing8169/genshin-impact-tracker/workflows/Node.js CI/badge.svg)
+
+[![codecov](https://codecov.io/gh/wing8169/genshin-impact-tracker/branch/master/graph/badge.svg)](https://codecov.io/gh/wing8169/genshin-impact-tracker)
+
 # Demonstration Website
 
 https://genshin-impact-tracker.herokuapp.com/
