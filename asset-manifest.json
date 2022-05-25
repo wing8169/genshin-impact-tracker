@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/genshin/static/css/main.d3f120f6.chunk.css",
-    "main.js": "/genshin/static/js/main.e384a100.chunk.js",
-    "main.js.map": "/genshin/static/js/main.e384a100.chunk.js.map",
-    "runtime-main.js": "/genshin/static/js/runtime-main.3f9fdede.js",
-    "runtime-main.js.map": "/genshin/static/js/runtime-main.3f9fdede.js.map",
-    "static/js/2.b9334c03.chunk.js": "/genshin/static/js/2.b9334c03.chunk.js",
-    "static/js/2.b9334c03.chunk.js.map": "/genshin/static/js/2.b9334c03.chunk.js.map",
-    "index.html": "/genshin/index.html",
-    "precache-manifest.89a03cb08585838bcc60e83bb75dfeab.js": "/genshin/precache-manifest.89a03cb08585838bcc60e83bb75dfeab.js",
-    "service-worker.js": "/genshin/service-worker.js",
-    "static/css/main.d3f120f6.chunk.css.map": "/genshin/static/css/main.d3f120f6.chunk.css.map",
-    "static/js/2.b9334c03.chunk.js.LICENSE.txt": "/genshin/static/js/2.b9334c03.chunk.js.LICENSE.txt",
-    "static/media/index.css": "/genshin/static/media/Axiforma-Regular.d882de2c.ttf",
-    "static/media/genshin-impact.png": "/genshin/static/media/genshin-impact.5c125a10.png",
-    "static/media/teyvat.webp": "/genshin/static/media/teyvat.e10c6965.webp"
+    "main.css": "/genshin-impact-tracker/static/css/main.1ea92387.chunk.css",
+    "main.js": "/genshin-impact-tracker/static/js/main.ed9079bc.chunk.js",
+    "main.js.map": "/genshin-impact-tracker/static/js/main.ed9079bc.chunk.js.map",
+    "runtime-main.js": "/genshin-impact-tracker/static/js/runtime-main.20a5f58d.js",
+    "runtime-main.js.map": "/genshin-impact-tracker/static/js/runtime-main.20a5f58d.js.map",
+    "static/js/2.4b1f6a78.chunk.js": "/genshin-impact-tracker/static/js/2.4b1f6a78.chunk.js",
+    "static/js/2.4b1f6a78.chunk.js.map": "/genshin-impact-tracker/static/js/2.4b1f6a78.chunk.js.map",
+    "index.html": "/genshin-impact-tracker/index.html",
+    "precache-manifest.87b231a4d7107542c1c7a3174dbf9bbb.js": "/genshin-impact-tracker/precache-manifest.87b231a4d7107542c1c7a3174dbf9bbb.js",
+    "service-worker.js": "/genshin-impact-tracker/service-worker.js",
+    "static/css/main.1ea92387.chunk.css.map": "/genshin-impact-tracker/static/css/main.1ea92387.chunk.css.map",
+    "static/js/2.4b1f6a78.chunk.js.LICENSE.txt": "/genshin-impact-tracker/static/js/2.4b1f6a78.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/genshin-impact-tracker/static/media/Axiforma-Regular.d882de2c.ttf",
+    "static/media/genshin-impact.png": "/genshin-impact-tracker/static/media/genshin-impact.5c125a10.png",
+    "static/media/teyvat.webp": "/genshin-impact-tracker/static/media/teyvat.e10c6965.webp"
   },
   "entrypoints": [
-    "static/js/runtime-main.3f9fdede.js",
-    "static/js/2.b9334c03.chunk.js",
-    "static/css/main.d3f120f6.chunk.css",
-    "static/js/main.e384a100.chunk.js"
+    "static/js/runtime-main.20a5f58d.js",
+    "static/js/2.4b1f6a78.chunk.js",
+    "static/css/main.1ea92387.chunk.css",
+    "static/js/main.ed9079bc.chunk.js"
   ]
 }
