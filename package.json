@@ -2,6 +2,7 @@
   "name": "genshin",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://wing8169.github.io/genshin",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
@@ -10,6 +11,7 @@
     "@testing-library/user-event": "^7.2.1",
     "dotenv": "^8.2.0",
     "firebase": "^7.24.0",
+    "gh-pages": "^4.0.0",
     "leaflet": "^1.7.1",
     "moment": "^2.29.1",
     "react": "^16.14.0",
@@ -29,7 +31,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
