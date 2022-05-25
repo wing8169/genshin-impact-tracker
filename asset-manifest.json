@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/genshin/static/css/main.d3f120f6.chunk.css",
+    "main.js": "/genshin/static/js/main.e384a100.chunk.js",
+    "main.js.map": "/genshin/static/js/main.e384a100.chunk.js.map",
+    "runtime-main.js": "/genshin/static/js/runtime-main.3f9fdede.js",
+    "runtime-main.js.map": "/genshin/static/js/runtime-main.3f9fdede.js.map",
+    "static/js/2.b9334c03.chunk.js": "/genshin/static/js/2.b9334c03.chunk.js",
+    "static/js/2.b9334c03.chunk.js.map": "/genshin/static/js/2.b9334c03.chunk.js.map",
+    "index.html": "/genshin/index.html",
+    "precache-manifest.89a03cb08585838bcc60e83bb75dfeab.js": "/genshin/precache-manifest.89a03cb08585838bcc60e83bb75dfeab.js",
+    "service-worker.js": "/genshin/service-worker.js",
+    "static/css/main.d3f120f6.chunk.css.map": "/genshin/static/css/main.d3f120f6.chunk.css.map",
+    "static/js/2.b9334c03.chunk.js.LICENSE.txt": "/genshin/static/js/2.b9334c03.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/genshin/static/media/Axiforma-Regular.d882de2c.ttf",
+    "static/media/genshin-impact.png": "/genshin/static/media/genshin-impact.5c125a10.png",
+    "static/media/teyvat.webp": "/genshin/static/media/teyvat.e10c6965.webp"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3f9fdede.js",
+    "static/js/2.b9334c03.chunk.js",
+    "static/css/main.d3f120f6.chunk.css",
+    "static/js/main.e384a100.chunk.js"
+  ]
+}
