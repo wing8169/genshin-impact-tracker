@@ -52,7 +52,9 @@ jobs:
           REACT_APP_AUTH_DOMAIN: ${{ secrets.REACT_APP_AUTH_DOMAIN }}
           REACT_APP_DATABASE_URL: ${{ secrets.REACT_APP_DATABASE_URL }}
           REACT_APP_PROJECT_ID: ${{ secrets.REACT_APP_PROJECT_ID }}
-        run: npm run build --if-present=
+        run: / 
+          echo ${{ secrets.REACT_APP_API_KEY }}
+          npm run build --if-present=
 
       - name: Deploy
         run: |
