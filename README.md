@@ -1,4 +1,4 @@
-[![CI/CD](https://github.com/wing8169/genshin-impact-tracker/workflows/Node.js CI/badge.svg)]
+![CI/CD](https://github.com/wing8169/genshin-impact-tracker/workflows/Node.js%20CI/badge.svg)
 
 [![codecov](https://codecov.io/gh/wing8169/genshin-impact-tracker/branch/master/graph/badge.svg)](https://codecov.io/gh/wing8169/genshin-impact-tracker)
 
