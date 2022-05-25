@@ -10,6 +10,12 @@ on:
     branches: [master]
 
 jobs:
+  env:
+    REACT_APP_API_KEY: ${{ secrets.REACT_APP_API_KEY }}
+    REACT_APP_AUTH_DOMAIN: ${{ secrets.REACT_APP_AUTH_DOMAIN }}
+    REACT_APP_DATABASE_URL: ${{ secrets.REACT_APP_DATABASE_URL }}
+    REACT_APP_PROJECT_ID: ${{ secrets.REACT_APP_PROJECT_ID }}
+
   build:
     runs-on: ubuntu-latest
 
@@ -47,14 +53,7 @@ jobs:
         uses: codecov/codecov-action@v1
 
       - name: Build
-        env:
-          REACT_APP_API_KEY: ${{ secrets.REACT_APP_API_KEY }}
-          REACT_APP_AUTH_DOMAIN: ${{ secrets.REACT_APP_AUTH_DOMAIN }}
-          REACT_APP_DATABASE_URL: ${{ secrets.REACT_APP_DATABASE_URL }}
-          REACT_APP_PROJECT_ID: ${{ secrets.REACT_APP_PROJECT_ID }}
-        run: / 
-          echo ${{ secrets.REACT_APP_API_KEY }}
-          npm run build --if-present=
+        run: npm run build --if-present=
 
       - name: Deploy
         run: |
